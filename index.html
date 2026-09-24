@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="ad.size" content="width=360,height=300">
+  <title>Genial Collection Banner Ad</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Ad Network ClickTag Variable -->
+  <script type="text/javascript">
+    var clickTag = "https://genialcollection.shop";
+  </script>
+</head>
+<body>
+
+  <div class="ad-banner">
+    
+    <!-- Left Column Wrapper: Groups Header + Text Content -->
+    <div class="ad-left-col">
+      <!-- Top Left Header -->
+      <div class="ad-header">
+        <img src="logo.png" alt="Genial Logo" class="brand-logo">
+        <span class="brand-name">Genial Collection</span>
+      </div>
+
+      <!-- Main Text Content Area -->
+      <div class="ad-body">
+        <div class="ad-text-content">
+          <h2 id="typingHeading" class="ad-main-heading"></h2>
+          <p id="subText" class="ad-subtext hidden-text">
+            Experience bespoke tailoring and long-lasting designer perfumes crafted for elegance.
+          </p>
+          
+          <a href="javascript:void(0);" onclick="window.open(window.clickTag || 'https://genialcollection.shop', '_blank')" id="ctaBtn" class="cta-btn hidden-btn">
+            SHOP NOW
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side Showcase Container (Pulled out to align with top header height) -->
+    <div class="ad-media-showcase">
+      
+      <!-- 1. Photo Stage -->
+      <div id="photoStage" class="media-stage active-stage">
+        <img src="apparel.jpg" alt="Genial Apparel" class="showcase-img">
+      </div>
+
+      <!-- 2. Video Stage -->
+      <div id="videoStage" class="media-stage hidden-stage">
+        <video id="adVideo" muted playsinline>
+          <source id="videoSource" src="video1.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- 3. Logo & Address Stage -->
+      <div id="brandStage" class="media-stage hidden-stage brand-card">
+        <img src="logo.png" alt="Genial Collection" class="brand-end-logo">
+        <h3 class="brand-end-title">GENIAL COLLECTION</h3>
+        <p class="brand-address">🛵 Delivery across Port Harcourt City</p>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar: Barcode / QR Code -->
+    <div class="ad-footer">
+      <div class="barcode-box">
+        <img src="barcode.png" alt="Scan QR Code" class="barcode-img">
+        <span>SCAN TO SHOP</span>
+        <span>ACCESS YOUR PERSONALISED SHOPPING EXPERIENCE.</span> 
+      </div>
+      <p class="disclaimer-text">
+        Exclusive fashion pieces & signature fragrances.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Sequence Controller Script (With Continuous Loop) -->
+  <script>
+    // --- Elements & Constants ---
+    const headingText = "Custom Female Dress Designs & Luxury Scents";
+    const typingElement = document.getElementById('typingHeading');
+    const subText = document.getElementById('subText');
+    const ctaBtn = document.getElementById('ctaBtn');
+
+    const photoStage = document.getElementById('photoStage');
+    const videoStage = document.getElementById('videoStage');
+    const brandStage = document.getElementById('brandStage');
+    const videoElement = document.getElementById('adVideo');
+    const videoSource = document.getElementById('videoSource');
+
+    const videoClips = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
+    let currentClipIndex = 0;
+    let charIndex = 0;
+    let typingTimer = null;
+    let initialPhotoTimer = null;
+
+    // --- 1. Typing Effect Controller ---
+    function typeWriter() {
+      if (charIndex < headingText.length) {
+        typingElement.innerHTML += headingText.charAt(charIndex);
+        charIndex++;
+        typingTimer = setTimeout(typeWriter, 40); // Typing speed
+      } else {
+        // Reveal subtext & pop CTA button when typing finishes
+        subText.classList.remove('hidden-text');
+        subText.classList.add('fade-in');
+        
+        setTimeout(() => {
+          ctaBtn.classList.remove('hidden-btn');
+          ctaBtn.classList.add('pop-up');
+        }, 300);
+      }
+    }
+
+    // --- 2. Master Loop Reset Controller ---
+    function resetAndRestartSequence() {
+      // Clear active timers
+      clearTimeout(typingTimer);
+      clearTimeout(initialPhotoTimer);
+
+      // Reset Text & CTA Buttons
+      charIndex = 0;
+      typingElement.innerHTML = '';
+      subText.className = 'ad-subtext hidden-text';
+      ctaBtn.className = 'cta-btn hidden-btn';
+
+      // Reset Media Stages (Show Photo, Hide Video & Brand Card)
+      brandStage.className = 'media-stage hidden-stage brand-card';
+      videoStage.className = 'media-stage hidden-stage';
+      photoStage.className = 'media-stage active-stage';
+
+      // Reset Video State
+      currentClipIndex = 0;
+      videoElement.pause();
+      videoElement.currentTime = 0;
+
+      // Restart Main Sequence
+      typeWriter();
+      startPhotoSequence();
+    }
+
+    // --- 3. Stage 1: Photo Timer ---
+    function startPhotoSequence() {
+      initialPhotoTimer = setTimeout(() => {
+        photoStage.classList.remove('active-stage');
+        photoStage.classList.add('hidden-stage');
+        
+        videoStage.classList.remove('hidden-stage');
+        videoStage.classList.add('active-stage');
+        
+        videoSource.src = videoClips[0];
+        videoElement.load();
+        videoElement.play();
+      }, 3000);
+    }
+
+    // --- 4. Stage 2 & 3: Video Queue & Brand End Stage ---
+    videoElement.addEventListener('ended', () => {
+      currentClipIndex++;
+      
+      if (currentClipIndex < videoClips.length) {
+        // Play next video clip
+        videoSource.src = videoClips[currentClipIndex];
+        videoElement.load();
+        videoElement.play();
+      } else {
+        // Show Final Brand Card
+        videoStage.classList.remove('active-stage');
+        videoStage.classList.add('hidden-stage');
+        
+        brandStage.classList.remove('hidden-stage');
+        brandStage.classList.add('active-stage', 'fade-in');
+
+        // Hold Brand Card for 3 Seconds, then Loop Back to Start
+        setTimeout(resetAndRestartSequence, 3000);
+      }
+    });
+
+    // Start playback sequence on initial load
+    window.addEventListener('load', () => {
+      typeWriter();
+      startPhotoSequence();
+    });
+  </script>
+
+</body>
+</html>
