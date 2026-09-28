@@ -1,0 +1,253 @@
+/* Card Container */
+.ad-banner {
+  width: 360px;
+  height: 320px;
+  background-color: #0F0F12;
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-wrap: wrap; /* Updated to allow left column & right showcase to sit side-by-side above footer */
+  justify-content: space-between;
+  align-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Left Side Column Wrapper (Holds Header + Text Content) */
+.ad-left-col {
+  width: 55%;
+  height: 215px; /* Matches full height of the expanded media showcase */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+.ad-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.brand-logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+}
+
+/* Body Content Area */
+.ad-body {
+  display: flex;
+  align-items: center;
+  height: 175px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Left Copy Section */
+.ad-text-content {
+  width: 100%; /* Fills full width of left wrapper */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ad-main-heading {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+  color: #FFFFFF;
+  min-height: 62px; /* Holds height while typing */
+}
+
+.ad-subtext {
+  font-size: 11px;
+  color: #A1A1AA;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Typing & Pop-up Animation Classes */
+.hidden-text {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.hidden-btn {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.pop-up {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Call to Action Button */
+.cta-btn {
+  display: inline-block;
+  margin-top: 6px;
+  background-color: #5B21B6;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Right Media Container (Height extended to top header level) */
+.ad-media-showcase {
+  width: 40%;
+  height: 215px; /* Updated height to reach top of header */
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.media-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.active-stage {
+  display: block;
+  z-index: 2;
+}
+
+.hidden-stage {
+  display: none;
+  z-index: 1;
+}
+
+.showcase-img, #adVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+/* End Stage: Seamless Floating Brand Logo & Address */
+.brand-card {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+}
+
+.brand-end-logo {
+  width: 75px;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  object-fit: contain;
+  margin-bottom: 8px;
+  animation: popLogo 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.brand-end-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #C59B27;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.brand-address {
+  font-size: 8px;
+  color: #D4D4D8;
+  margin: 0;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Pop-out Animation for the Logo */
+@keyframes popLogo {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Footer Section */
+.ad-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #27272A;
+  padding-top: 8px;
+  z-index: 2;
+}
+
+.barcode-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 4px 6px;
+  border-radius: 6px;
+  min-width: 90px;
+  max-width: 110px;
+  text-align: center;
+}
+
+.barcode-img {
+  width: 75px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.barcode-box span {
+  font-size: 7px;
+  color: #000000;
+  font-weight: 800;
+  margin-top: 3px;
+  letter-spacing: 0.3px;
+}
+
+.disclaimer-text {
+  font-size: 8px;
+  color: #71717A;
+  margin: 0;
+  line-height: 1.2;
+  max-width: 180px;
+}

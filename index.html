@@ -7,7 +7,6 @@
   <title>Genial Collection Banner Ad</title>
   <link rel="stylesheet" href="style.css">
   
-  <!-- Ad Network ClickTag Variable -->
   <script type="text/javascript">
     var clickTag = "https://genialcollection.shop";
   </script>
@@ -16,7 +15,7 @@
 
   <div class="ad-banner">
     
-    <!-- Left Column Wrapper: Groups Header + Text Content -->
+    
     <div class="ad-left-col">
       <!-- Top Left Header -->
       <div class="ad-header">
@@ -24,7 +23,7 @@
         <span class="brand-name">Genial Collection</span>
       </div>
 
-      <!-- Main Text Content Area -->
+    
       <div class="ad-body">
         <div class="ad-text-content">
           <h2 id="typingHeading" class="ad-main-heading"></h2>
@@ -39,22 +38,22 @@
       </div>
     </div>
 
-    <!-- Right Side Showcase Container (Pulled out to align with top header height) -->
+    
     <div class="ad-media-showcase">
       
-      <!-- 1. Photo Stage -->
+    
       <div id="photoStage" class="media-stage active-stage">
         <img src="apparel.jpg" alt="Genial Apparel" class="showcase-img">
       </div>
 
-      <!-- 2. Video Stage -->
+      
       <div id="videoStage" class="media-stage hidden-stage">
         <video id="adVideo" muted playsinline>
           <source id="videoSource" src="video1.mp4" type="video/mp4">
         </video>
       </div>
 
-      <!-- 3. Logo & Address Stage -->
+    
       <div id="brandStage" class="media-stage hidden-stage brand-card">
         <img src="logo.png" alt="Genial Collection" class="brand-end-logo">
         <h3 class="brand-end-title">GENIAL COLLECTION</h3>
@@ -63,7 +62,7 @@
 
     </div>
 
-    <!-- Bottom Bar: Barcode / QR Code -->
+    
     <div class="ad-footer">
       <div class="barcode-box">
         <img src="barcode.png" alt="Scan QR Code" class="barcode-img">
@@ -77,9 +76,8 @@
 
   </div>
 
-  <!-- Sequence Controller Script (With Continuous Loop) -->
   <script>
-    // --- Elements & Constants ---
+    
     const headingText = "Custom Female Dress Designs & Luxury Scents";
     const typingElement = document.getElementById('typingHeading');
     const subText = document.getElementById('subText');
@@ -97,7 +95,7 @@
     let typingTimer = null;
     let initialPhotoTimer = null;
 
-    // --- 1. Typing Effect Controller ---
+    
     function typeWriter() {
       if (charIndex < headingText.length) {
         typingElement.innerHTML += headingText.charAt(charIndex);
@@ -115,7 +113,7 @@
       }
     }
 
-    // --- 2. Master Loop Reset Controller ---
+    
     function resetAndRestartSequence() {
       // Clear active timers
       clearTimeout(typingTimer);
@@ -142,7 +140,7 @@
       startPhotoSequence();
     }
 
-    // --- 3. Stage 1: Photo Timer ---
+    
     function startPhotoSequence() {
       initialPhotoTimer = setTimeout(() => {
         photoStage.classList.remove('active-stage');
@@ -162,7 +160,7 @@
       currentClipIndex++;
       
       if (currentClipIndex < videoClips.length) {
-        // Play next video clip
+        
         videoSource.src = videoClips[currentClipIndex];
         videoElement.load();
         videoElement.play();
@@ -174,12 +172,11 @@
         brandStage.classList.remove('hidden-stage');
         brandStage.classList.add('active-stage', 'fade-in');
 
-        // Hold Brand Card for 3 Seconds, then Loop Back to Start
         setTimeout(resetAndRestartSequence, 3000);
       }
     });
 
-    // Start playback sequence on initial load
+    
     window.addEventListener('load', () => {
       typeWriter();
       startPhotoSequence();
